@@ -62,7 +62,9 @@
           if (this.formInline.calType === 'mix') {
             operation = Math.round(Math.random()*10) >=5 ? 'plus': 'minus'
           }
-          this.items.push(this.getSingle(operation))
+          const obj = this.getSingle(operation)
+          obj.id = i
+          this.items.push(obj)
         }
       },
       getSingle (operation) {
@@ -103,6 +105,8 @@
     border-bottom: 1px solid black;
     list-style-type: none;
     width: 200px;
+    height:40px;
     float: left;
+    line-height: 40px;
   }
 </style>

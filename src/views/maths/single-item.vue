@@ -1,10 +1,12 @@
 <template>
   <div>
-    <span v-for="(number, index) of formula.numbers" :key="index">
-      <span class="number">{{number}}</span>
-      <span class="operation">{{getOperation(index)}}</span>
+    <span class="formula">
+      <span v-for="(number, index) of formula.numbers" :key="index" >
+        <span class="number">{{number}}</span>
+        <span class="operation">{{getOperation(index)}}</span>
+      </span>
     </span>
-    <div class="result"></div>
+    <canvas :id="'canvas-' + this.formula.id" class="square"></canvas>
   </div>
 </template>
 
@@ -17,6 +19,7 @@
       }
     },
     mounted () {
+      this.drawSquare()
     },
     methods: {
       getOperation (index) {
@@ -28,17 +31,54 @@
         } else {
           return '='
         }
+      },
+      drawSquare () {
+        var canvasWidth = 30
+        var canvasHeight = 30
+
+        var canvas = document.getElementById("canvas-" + this.formula.id)
+        var ctx = canvas.getContext("2d")
+
+        canvas.height = canvasHeight
+        canvas.width = canvasWidth
+
+        // 田字格四边
+        ctx.beginPath()
+        ctx.moveTo(0, 0)
+        ctx.lineTo(canvasHeight, 0)
+        ctx.lineTo(canvasHeight, canvasWidth)
+        ctx.lineTo(0, canvasWidth)
+        ctx.closePath()
+        ctx.lineWidth = 2
+        ctx.stroke()
+        // 田字格
+        ctx.setLineDash([1])
+        ctx.lineWidth = 0.5
+        ctx.beginPath()
+        ctx.moveTo(0, canvasHeight/2)
+        ctx.lineTo(canvasWidth, canvasHeight/2)
+        ctx.moveTo(canvasWidth/2, 0)
+        ctx.lineTo(canvasWidth/2, canvasHeight)
+        ctx.stroke()
       }
     }
   }
 </script>
 
 <style scoped>
+  .formula {
+    margin-left: -30px;
+  }
   .number {
-    font-size: 20px;
+    font-size: 26px;
   }
   .operation {
-    font-size: 20px;
+    font-size: 30px;
     padding: 5px;
+  }
+  .square {
+    position: absolute;
+    height: 30px;
+    margin-top: 5px;
   }
 </style>
