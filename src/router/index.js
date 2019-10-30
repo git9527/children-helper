@@ -7,7 +7,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: () => import(/* webpackChunkName: "about" */ '../views/maths/index.vue')
+    component: () => import(/* webpackChunkName: "about" */ '../views/maths/two-numbers.vue')
   },
   {
     path: '/about',
