@@ -5,9 +5,15 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
-    name: 'home',
-    component: () => import(/* webpackChunkName: "about" */ '../views/maths/two-numbers.vue')
+    path: '/math/plus-minus/2',
+    alias: '/',
+    name: 'plus-minus-2',
+    component: () => import('../views/maths/plus-minus-2.vue')
+  },
+  {
+    path: '/math/plus-minus/3',
+    name: 'plus-minus-3',
+    component: () => import('../views/maths/plus-minus-3.vue')
   },
   {
     path: '/about',

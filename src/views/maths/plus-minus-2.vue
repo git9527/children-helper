@@ -11,8 +11,9 @@
       <el-form-item label="题目数量">
         <el-input-number v-model="formInline.calCount" :min="12" :step="4" :max="100" step-strictly></el-input-number>
       </el-form-item>
-      <el-form-item label="数字范围">
+      <el-form-item label="最终结果范围">
         <el-select v-model="formInline.calMax">
+          <el-option label="10以内" value="10"></el-option>
           <el-option label="20以内" value="20"></el-option>
           <el-option label="30以内" value="30"></el-option>
           <el-option label="50以内" value="50"></el-option>
@@ -132,6 +133,9 @@
     height: 40px;
     float: left;
     line-height: 40px;
+  }
+  .single-item >>> .operation {
+    padding: 5px;
   }
   .footer {
     margin-top: 10px;

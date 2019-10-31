@@ -1,7 +1,8 @@
 <template>
   <div id="app">
     <div id="nav">
-      <router-link to="/">两数加减</router-link> |
+      <router-link to="/math/plus-minus/2">两数加减</router-link> |
+      <router-link to="/math/plus-minus/3">三数加减</router-link> |
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>

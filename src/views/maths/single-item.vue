@@ -74,7 +74,6 @@
   }
   .operation {
     font-size: 30px;
-    padding: 5px;
   }
   .square {
     position: absolute;
