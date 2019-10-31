@@ -21,18 +21,30 @@
       <el-form-item>
         <el-button type="primary" plain @click="generateItems">生成试题</el-button>
       </el-form-item>
+      <el-form-item>
+        <el-button type="primary" plain @click="downloadPdf">下载试题</el-button>
+      </el-form-item>
     </el-form>
 
-    <ul class="items-table" id="items-table">
-      <li class="single-item" v-for="(item, index) of items" :key="index">
-        <single :formula="item"></single>
-      </li>
-    </ul>
+    <div id="full-page">
+      <ul class="items-table" id="items-table">
+        <li class="single-item" v-for="(item, index) of items" :key="index">
+          <single :formula="item"></single>
+        </li>
+      </ul>
+
+      <div class="footer">
+        <span class="date">日期：____________</span>
+        <span class="score">得分：____________</span>
+      </div>
+    </div>
+
   </div>
 </template>
 
 <script>
   import Single from './single-item'
+  import { generatePdf } from '../../vendors/pdf'
 
   export default {
     components: {
@@ -52,6 +64,9 @@
       this.generateItems()
     },
     methods: {
+      downloadPdf () {
+        generatePdf('两数加减', 'full-page')
+      },
       generateItems () {
         this.items = []
         let operation = 'plus'
@@ -90,13 +105,19 @@
   }
 </script>
 
+<style>
+  .el-input--suffix .el-input__inner {
+    width: 120px;
+  }
+</style>
+
 <style scoped>
   .items-table {
     margin: 0 auto;
     border-left: 1px solid black;
     border-top: 1px solid black;
     list-style-type: none;
-    width: 804px;
+    width: 684px;
     overflow: hidden;
     padding: 0;
   }
@@ -104,9 +125,20 @@
     border-right: 1px solid black;
     border-bottom: 1px solid black;
     list-style-type: none;
-    width: 200px;
-    height:40px;
+    width: 170px;
+    height: 40px;
     float: left;
     line-height: 40px;
+  }
+  .footer {
+    margin-top: 10px;
+  }
+  .date {
+    margin: 0 30px;
+  }
+  #full-page {
+    padding-top: 30px;
+    width: 800px;
+    margin: 0 auto;
   }
 </style>
