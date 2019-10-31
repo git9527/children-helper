@@ -31,5 +31,6 @@
 <style scoped>
   .standard-number {
     width: 60px;
+    padding-left: 5px;
   }
 </style>
