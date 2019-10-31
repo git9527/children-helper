@@ -28,6 +28,7 @@
     </el-form>
 
     <div id="full-page">
+      <standard-number></standard-number>
       <ul class="items-table" id="items-table">
         <li class="single-item" v-for="(item, index) of items" :key="index">
           <single :formula="item"></single>
@@ -45,11 +46,12 @@
 
 <script>
   import Single from './single-item'
+  import StandardNumber from './standard'
   import { generatePdf } from '../../vendors/pdf'
 
   export default {
     components: {
-      Single
+      Single, StandardNumber
     },
     data() {
       return {
@@ -159,7 +161,7 @@
     margin: 0 30px;
   }
   #full-page {
-    padding-top: 30px;
+    padding-top: 10px;
     width: 800px;
     margin: 0 auto;
   }
