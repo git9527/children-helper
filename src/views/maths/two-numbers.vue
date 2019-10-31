@@ -55,7 +55,7 @@
         formInline: {
           calType: 'mix',
           calCount: 100,
-          calMax: '20'
+          calMax: '30'
         },
         items: []
       }
@@ -84,7 +84,10 @@
       },
       getSingle (operation) {
         const max =  parseInt(this.formInline.calMax)
-        const a = this.randomNumber(0, max)
+        let a = this.randomNumber(0, max)
+        if (a === 0) {
+          a = this.randomNumber(0, max)
+        }
         let b = 0
         if (operation === 'plus') {
            b = this.randomNumber(0, max-a)
@@ -99,7 +102,7 @@
       randomNumber (a, b) {
         const maxNum = a > b ? a : b
         const minNum = a > b ? b : a
-        return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10)
+        return Math.round(Math.random()*(maxNum - minNum))
       }
     }
   }
