@@ -16,6 +16,11 @@ const routes = [
     component: () => import('../views/maths/plus-minus-3.vue')
   },
   {
+    path: '/math/plus-minus/5',
+    name: 'plus-minus-5',
+    component: () => import('../views/maths/plus-minus-5.vue')
+  },
+  {
     path: '/about',
     name: 'about',
     // route level code-splitting

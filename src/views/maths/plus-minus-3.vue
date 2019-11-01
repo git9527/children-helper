@@ -20,10 +20,10 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" plain @click="generateItems">生成试题</el-button>
+        <el-button icon="el-icon-refresh" type="primary" plain @click="generateItems">生成试题</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" plain @click="downloadPdf">下载试题</el-button>
+        <el-button icon="el-icon-printer" type="success" plain @click="downloadPdf">下载为PDF</el-button>
       </el-form-item>
     </el-form>
 

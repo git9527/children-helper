@@ -9,7 +9,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="题目数量">
-        <el-input-number v-model="formInline.calCount" :min="12" :step="4" :max="100" step-strictly></el-input-number>
+        <el-input-number v-model="formInline.calCount" :min="12" :step="2" :max="50" step-strictly></el-input-number>
       </el-form-item>
       <el-form-item label="最终结果范围">
         <el-select v-model="formInline.calMax">
@@ -17,6 +17,7 @@
           <el-option label="20以内" value="20"></el-option>
           <el-option label="30以内" value="30"></el-option>
           <el-option label="50以内" value="50"></el-option>
+          <el-option label="100以内" value="100"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
@@ -57,8 +58,8 @@
       return {
         formInline: {
           calType: 'mix',
-          calCount: 100,
-          calMax: '30'
+          calCount: 50,
+          calMax: '100'
         },
         items: []
       }
@@ -68,39 +69,69 @@
     },
     methods: {
       downloadPdf () {
-        generatePdf('两数加减', 'full-page')
+        generatePdf('五数加减', 'full-page')
       },
       generateItems () {
         this.items = []
-        let operation = 'plus'
-        if (this.formInline.calType === 'minus') {
-          operation = 'minus'
-        }
         for (let i = 0; i < this.formInline.calCount; i++) {
-          if (this.formInline.calType === 'mix') {
-            operation = Math.round(Math.random()*10) >=5 ? 'plus': 'minus'
-          }
-          const obj = this.getSingle(operation)
+          const obj = this.getSingle()
           obj.id = i
           this.items.push(obj)
         }
       },
-      getSingle (operation) {
+      getSingle () {
+        const operation1 = this.getRandomOperation()
         const max =  parseInt(this.formInline.calMax)
         let a = this.randomNumber(0, max)
         if (a === 0) {
           a = this.randomNumber(0, max)
         }
+        const b = this.getRandomNumber(operation1, a)
+        const operation2 = this.getRandomOperation()
+        let current = 0
+        if (operation1 === 'plus') {
+          current = a + b
+        } else {
+          current = a - b
+        }
+        const c = this.getRandomNumber(operation2, current)
+        const operation3 = this.getRandomOperation()
+        if (operation2 === 'plus') {
+          current = current + c
+        } else {
+          current = current - c
+        }
+        const d = this.getRandomNumber(operation3, current)
+        const operation4 = this.getRandomOperation()
+        if (operation3 === 'plus') {
+          current = current + d
+        } else {
+          current = current - d
+        }
+        const e = this.getRandomNumber(operation4, current)
+        return {
+          numbers: [a, b, c, d, e],
+          operations: [operation1, operation2, operation3, operation4]
+        }
+      },
+      getRandomNumber (operation, a) {
+        const rest = parseInt(this.formInline.calMax) - a
         let b = 0
         if (operation === 'plus') {
-           b = this.randomNumber(0, max-a)
+          b = this.randomNumber(0, rest)
         } else {
-           b = this.randomNumber(0, a)
+          b = this.randomNumber(0, a)
         }
-        return {
-          numbers: [a, b],
-          operations: [operation]
+        return b
+      },
+      getRandomOperation () {
+        let operation = 'plus'
+        if (this.formInline.calType === 'minus') {
+          operation = 'minus'
+        } else if (this.formInline.calType === 'mix') {
+          operation = Math.round(Math.random()*10) >=5 ? 'plus': 'minus'
         }
+        return operation
       },
       randomNumber (a, b) {
         const maxNum = a > b ? a : b
@@ -123,7 +154,7 @@
     border-left: 1px solid black;
     border-top: 1px solid black;
     list-style-type: none;
-    width: 684px;
+    width: 724px;
     overflow: hidden;
     padding: 0;
   }
@@ -131,13 +162,13 @@
     border-right: 1px solid black;
     border-bottom: 1px solid black;
     list-style-type: none;
-    width: 170px;
+    width: 360px;
     height: 40px;
     float: left;
     line-height: 40px;
   }
   .single-item >>> .operation {
-    padding: 5px;
+    padding: 2px;
   }
   .footer {
     margin-top: 10px;
