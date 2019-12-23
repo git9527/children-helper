@@ -17,6 +17,7 @@
           <el-option label="20以内" value="20"></el-option>
           <el-option label="30以内" value="30"></el-option>
           <el-option label="50以内" value="50"></el-option>
+          <el-option label="100以内" value="100"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
