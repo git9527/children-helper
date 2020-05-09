@@ -168,7 +168,7 @@
     line-height: 40px;
   }
   .single-item >>> .operation {
-    padding: 2px;
+    padding-left: 1px;
   }
   .footer {
     margin-top: 10px;
