@@ -21,6 +21,11 @@ const routes = [
     component: () => import('../views/maths/plus-minus-5.vue')
   },
   {
+    path: '/secret/subscribe',
+    name: 'secret-subscribe',
+    component: () => import('../views/secret/subscribe.vue')
+  },
+  {
     path: '/about',
     name: 'about',
     // route level code-splitting
