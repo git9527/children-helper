@@ -1,7 +1,6 @@
 name: deploy to aliyun oss
 
-on:
-  push:
+on: [push]
 
 jobs:
   build:
