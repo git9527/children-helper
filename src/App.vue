@@ -4,6 +4,7 @@
       <router-link to="/">两数加减</router-link> |
       <router-link to="/math/plus-minus/3">三数加减</router-link> |
       <router-link to="/math/plus-minus/5">五数加减</router-link> |
+      <router-link to="/secret/haluo">哈啰二维码</router-link> |
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>
