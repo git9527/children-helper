@@ -14,11 +14,11 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: 10.x
-      # npm install
+      # yarn install
       - name: build and deploy
         run: |
-          npm install
-          npm run build
+          yarn install
+          yarn build
       - name: setup aliyun oss
         uses: manyuanrong/setup-ossutil@master
         with:

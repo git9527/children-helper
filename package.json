@@ -3,13 +3,14 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "vue-cli-service serve",
+    "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint --fix"
   },
   "dependencies": {
     "core-js": "^3.7.0",
     "element-ui": "^2.14.1",
+    "file-saver": "^2.0.5",
     "html2canvas": "^1.0.0-rc.7",
     "js-base64": "^2.6.4",
     "jspdf": "^1.5.3",
@@ -38,7 +39,9 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "no-console": "off"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }

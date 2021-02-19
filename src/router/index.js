@@ -31,6 +31,11 @@ const routes = [
     component: () => import('../views/secret/subscribe.vue')
   },
   {
+    path: '/secret/anki',
+    name: 'secret-anki',
+    component: () => import('../views/secret/anki-select.vue')
+  },
+  {
     path: '/about',
     name: 'about',
     // route level code-splitting
