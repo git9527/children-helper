@@ -1,16 +1,16 @@
 <template>
   <div class="app-container">
-    <img class="standard-number" src="../../assets/images/0.png"/>
-    <img class="standard-number" src="../../assets/images/1.png"/>
-    <img class="standard-number" src="../../assets/images/2.png"/>
-    <img class="standard-number" src="../../assets/images/3.png"/>
-    <img class="standard-number" src="../../assets/images/4.png"/>
-    <img class="standard-number" src="../../assets/images/5.png"/>
-    <img class="standard-number" src="../../assets/images/6.png"/>
-    <img class="standard-number" src="../../assets/images/7.png"/>
-    <img class="standard-number" src="../../assets/images/8.png"/>
-    <img class="standard-number" src="../../assets/images/9.png"/>
-    <img class="standard-number" src="../../assets/images/10.png"/>
+    <img class="standard-number" src="../../assets/images/math/0.png"/>
+    <img class="standard-number" src="../../assets/images/math/1.png"/>
+    <img class="standard-number" src="../../assets/images/math/2.png"/>
+    <img class="standard-number" src="../../assets/images/math/3.png"/>
+    <img class="standard-number" src="../../assets/images/math/4.png"/>
+    <img class="standard-number" src="../../assets/images/math/5.png"/>
+    <img class="standard-number" src="../../assets/images/math/6.png"/>
+    <img class="standard-number" src="../../assets/images/math/7.png"/>
+    <img class="standard-number" src="../../assets/images/math/8.png"/>
+    <img class="standard-number" src="../../assets/images/math/9.png"/>
+    <img class="standard-number" src="../../assets/images/math/10.png"/>
   </div>
 </template>
 

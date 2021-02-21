@@ -37,6 +37,14 @@
               </el-tag>
             </template>
           </el-table-column>
+          <el-table-column
+            width="150"
+            label="操作">
+            <template slot-scope="scope">
+              <el-button type="primary" size="mini" @click="updateItem(scope.$index)">调整</el-button>
+              <el-button type="danger" size="mini" @click="removeItem(scope.$index)">删除</el-button>
+            </template>
+          </el-table-column>
         </el-table>
         <div class="btn">
           <span>请输入题目起始编号</span>
@@ -113,15 +121,15 @@ export default {
       },
       inputVisible: false,
       inputValue: '',
-      startNumber: 1947
+      startNumber: 1977
     }
   },
   mounted() {
   },
   methods: {
     onSubmit() {
-      if (!this.form.question.includes('【    】')) {
-        this.$message.error("问题中需含待替换部分【    】")
+      if (!this.form.question.includes('【】')) {
+        this.$message.error("问题中需含待替换部分【】")
         return
       }
       for (const option of this.form.options) {
@@ -164,7 +172,7 @@ export default {
       saveAs(blob, "start-from-" + this.startNumber + '.txt')
     },
     getFormattedQuestion(item) {
-      const count = item.question.split("【 ").length - 1
+      const count = item.question.split("【").length - 1
       const answer_array = item.options[item.answer-1].split("-")
       if (count !== answer_array.length) {
         this.$message.error("题目中待填空数与答案中不符合")
@@ -173,7 +181,7 @@ export default {
       let question = item.question
       for (let i=0; i< answer_array.length;i++) {
         console.log('before replace', question)
-        question = question.replace("【    】", '<font color="#e25b76">{{c1::【' + answer_array[i] + '】}}</font>')
+        question = question.replace("【】", '<font color="#e25b76">{{c1::【' + answer_array[i] + '】}}</font>')
         console.log('after replace', question)
       }
       return question
@@ -204,6 +212,12 @@ export default {
       }
       this.inputVisible = false;
       this.inputValue = '';
+    },
+    updateItem (index) {
+      console.log('update item', index)
+    },
+    removeItem (index) {
+      console.log('remove item', index)
     }
   }
 }
