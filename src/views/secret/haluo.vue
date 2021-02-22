@@ -44,10 +44,10 @@ import QRCode from 'qrcode'
 export default {
   data() {
     return {
-      // firstLine: [0, 0, 1, 1, 0, 1, 0, 1, 1, 0, 1, 1, 1],
+      // firstLine: [1, 0, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0],
       // secondLine: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-      // squares: [0, 1, 0, 1, 1],
-      // code: '915**00816',
+      // squares: [0, 1, 1, 1, 1],
+      // code: '919**58136',
       firstLine: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       secondLine: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
       squares: [0, 0, 0, 0, 0],
@@ -165,17 +165,24 @@ export default {
       img.setAttribute('src', dataUrl)
       const canvas = document.createElement('canvas')
       img.onload = () => {
-        const number = code.split('&')[0]
+        let number = code.split('&')[0]
+        if (code.indexOf('&f') > -1) {
+          number += ' (车头位置)'
+        } else if (code.indexOf('&b') > -1) {
+          number += ' (座椅位置)'
+        } else {
+          number += ' (旧版单车)'
+        }
         canvas.width = imageSize
         canvas.height = imageSize + 30
         const context = canvas.getContext('2d')
         context.fillStyle = 'white'
         context.fillRect(0, 0, imageSize, imageSize)
         context.drawImage(img, 0, 0, imageSize, imageSize)
-        context.font = '16px sans-serif'
+        context.font = '18px sans-serif'
         context.fillStyle = 'black'
         context.textAlign = 'center'
-        context.fillText(number, imageSize / 2 - 10, imageSize + 10)
+        context.fillText(number, imageSize / 2, imageSize + 10)
       }
       document.getElementById('images-container').appendChild(canvas)
     },
