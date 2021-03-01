@@ -64,7 +64,7 @@
             <el-input v-model="form.options[index]" class="option-input"></el-input>
             <el-button @click="removeOption(index)" type="danger" plain>删除</el-button>
           </el-form-item>
-          <el-form-item>
+          <el-form-item label="" class="left-btn">
             <el-button @click="addOption" type="primary" plain>添加选项</el-button>
           </el-form-item>
           <el-form-item label="答案">
@@ -217,11 +217,17 @@ export default {
       console.log('update item', index)
     },
     removeItem (index) {
-      console.log('remove item', index)
+      this.items.splice(index, 1)
     }
   }
 }
 </script>
+
+<style>
+.full-wide {
+  width: 100%;
+}
+</style>
 
 <style scoped>
 .btn {
@@ -247,13 +253,13 @@ export default {
   margin-right: 10px;
   vertical-align: bottom;
 }
-.full-wide {
-  width: 100%;
-}
 .tag-container {
   float: left;
 }
 .start-number {
   margin: 0 20px;
+}
+.left-btn {
+  text-align: left;
 }
 </style>
