@@ -6,9 +6,11 @@
                   stripe
                   border>
           <el-table-column
-              type="index"
               label="序号"
-              width="50">
+              width="60">
+            <template slot-scope="scope">
+              <div>{{scope.$index + startNumber}}</div>
+            </template>
           </el-table-column>
           <el-table-column
               prop="question"
