@@ -48,7 +48,7 @@
             width="150"
             label="操作">
             <template slot-scope="scope">
-              <el-button type="primary" size="mini" @click="updateItem(scope.$index)">调整</el-button>
+              <el-button type="primary" size="mini" @click="updateItem(scope.$index, scope.row)">调整</el-button>
               <el-button type="danger" size="mini" @click="removeItem(scope.$index)">删除</el-button>
             </template>
           </el-table-column>
@@ -106,7 +106,7 @@
             </div>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="onSubmit">添加</el-button>
+            <el-button type="primary" @click="onSubmit">{{editIndex > -1?'更新':'添加'}}</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -132,7 +132,8 @@ export default {
       },
       inputVisible: false,
       inputValue: '',
-      startNumber: 2044
+      startNumber: 2044,
+      editIndex: -1
     }
   },
   mounted() {
@@ -156,8 +157,13 @@ export default {
         this.$message.error("答案不能为空")
         return
       }
-      const _copy = JSON.parse(JSON.stringify(this.form));
-      this.items.push(_copy)
+      const _copy = JSON.parse(JSON.stringify(this.form))
+      if (this.editIndex > -1) {
+        this.$set(this.items, this.editIndex, _copy)
+        this.editIndex = -1
+      } else {
+        this.items.push(_copy)
+      }
       this.form = {
         question: '',
         options: [''],
@@ -176,7 +182,7 @@ export default {
         const seq = this.zeroPad(i + this.startNumber, 4)
         const question = this.getFormattedQuestion(item).trim()
         const options = item.options.join("||")
-        const answer = item.answer.trim()
+        const answer = item.answer
         const notes = item.notes.trim()
         const tags = item.tags.join(" ").trim()
         content += seq + '\t' + question + '\t' + options + '\t' + answer + '\t' + notes +'\t' + tags + '\n'
@@ -226,8 +232,16 @@ export default {
       this.inputVisible = false;
       this.inputValue = '';
     },
-    updateItem (index) {
+    updateItem (index, rowData) {
       console.log('update item', index)
+      this.editIndex = index
+      this.form = {
+        question: rowData.question,
+        options: rowData.options,
+        answer: rowData.answer,
+        notes: rowData.notes,
+        tags: rowData.tags
+      }
     },
     removeItem (index) {
       this.items.splice(index, 1)
