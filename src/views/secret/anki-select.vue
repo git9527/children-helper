@@ -27,6 +27,11 @@
               label="答案">
           </el-table-column>
           <el-table-column
+              width="100"
+              prop="notes"
+              label="解析">
+          </el-table-column>
+          <el-table-column
               width="150"
               label="标签">
             <template slot-scope="scope">
@@ -55,13 +60,13 @@
       <el-col :span="6" :offset="1">
         <el-form ref="form" :model="form" label-width="90px">
           <el-form-item label="问题">
-            <el-input v-model="form.question" type="textarea" rows="5"></el-input>
+            <el-input v-model="form.question" type="textarea" rows="5" placeholder="此处填写问题，需包含【】"></el-input>
           </el-form-item>
           <el-form-item
               v-for="(option, index) in form.options"
               :label="'选项' + (index+1)"
               :key="index">
-            <el-input v-model="form.options[index]" class="option-input"></el-input>
+            <el-input v-model="form.options[index]" class="option-input" placeholder="此处填写选项"></el-input>
             <el-button @click="removeOption(index)" type="danger" plain>删除</el-button>
           </el-form-item>
           <el-form-item label="" class="left-btn">
@@ -71,6 +76,9 @@
             <el-select v-model="form.answer" class="full-wide">
               <el-option v-for="(option, index) in form.options" :label="option" :value="index+1" :key="index"></el-option>
             </el-select>
+          </el-form-item>
+          <el-form-item label="解析">
+            <el-input v-model="form.notes" type="textarea" rows="2" placeholder="此处填写解析，该字段选填"></el-input>
           </el-form-item>
           <el-form-item label="标签">
             <div class="tag-container">
@@ -117,11 +125,12 @@ export default {
         question: '',
         options: [''],
         answer: '',
+        notes: '',
         tags: []
       },
       inputVisible: false,
       inputValue: '',
-      startNumber: 2003
+      startNumber: 2044
     }
   },
   mounted() {
@@ -151,6 +160,7 @@ export default {
         question: '',
         options: [''],
         answer: '',
+        notes: '',
         tags: []
       }
     },
@@ -162,11 +172,12 @@ export default {
       for (let i=0; i< this.items.length; i++) {
         const item = this.items[i]
         const seq = this.zeroPad(i + this.startNumber, 4)
-        const question = this.getFormattedQuestion(item)
+        const question = this.getFormattedQuestion(item).trim()
         const options = item.options.join("||")
-        const answer = item.answer
-        const tags = item.tags.join(" ")
-        content += seq + '\t' + question + '\t' + options + '\t' + answer + '\t' + tags + '\n'
+        const answer = item.answer.trim()
+        const notes = item.notes.trim()
+        const tags = item.tags.join(" ").trim()
+        content += seq + '\t' + question + '\t' + options + '\t' + answer + '\t' + notes +'\t' + tags + '\n'
       }
       const blob = new Blob([content], {type: "text/plain;charset=utf-8"})
       saveAs(blob, "start-from-" + this.startNumber + '.txt')
@@ -181,7 +192,7 @@ export default {
       let question = item.question
       for (let i=0; i< answer_array.length;i++) {
         console.log('before replace', question)
-        question = question.replace("【】", '<font color="#e25b76">{{c1::【' + answer_array[i] + '】}}</font>')
+        question = question.replace("【】", '<font color="#ef3461">{{c1::【' + answer_array[i] + '】}}</font>')
         console.log('after replace', question)
       }
       return question
