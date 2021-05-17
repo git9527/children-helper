@@ -36,6 +36,11 @@ const routes = [
     component: () => import('../views/secret/anki-select.vue')
   },
   {
+    path: '/hidden/yijian',
+    name: 'hidden-yijian',
+    component: () => import('../views/hidden/yijian.vue')
+  },
+  {
     path: '/about',
     name: 'about',
     // route level code-splitting
