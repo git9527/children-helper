@@ -132,7 +132,7 @@ export default {
       },
       inputVisible: false,
       inputValue: '',
-      startNumber: 2044,
+      startNumber: 2102,
       editIndex: -1
     }
   },
@@ -197,10 +197,10 @@ export default {
         this.$message.error("题目中待填空数与答案中不符合")
         return
       }
-      let question = item.question
+      let question = '"' + item.question + '"'
       for (let i=0; i< answer_array.length;i++) {
         console.log('before replace', question)
-        question = question.replace("【】", '<font color="#ef3461">{{c1::【' + answer_array[i] + '】}}</font>')
+        question = question.replace("【】", '<font color=""#ef3461"">{{c1::【' + answer_array[i] + '】}}</font>')
         console.log('after replace', question)
       }
       return question
