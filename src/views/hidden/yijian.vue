@@ -63,8 +63,8 @@ export default {
         }
         console.log(fields)
         let originQuestion = fields[0]
-        let options = fields[1]
-        let answer = fields[2]
+        let options = fields[1].replace(/(^\|+)|(\|+$)/g, '')
+        let answer = fields[2].replace(/(^\|+)|(\|+$)/g, '')
         let desc = fields[3]
         let id = originQuestion.split('.')[0]
         let pureQuestion = originQuestion.substring(originQuestion.indexOf('.') + 1)
@@ -80,7 +80,7 @@ export default {
       let _options = options.split('||')
       let _answers = answers.split('||')
       for (let i = 0; i < _answers.length; i ++) {
-        full.push('<font color="#ef3461">{{c1::【' + _options[i] + '】}}</font>')
+        full.push('<font color="#ef3461">{{c1::【' + _options[Number.parseInt(_answers[i]) - 1] + '】}}</font>')
       }
       return full.join('、')
     }
