@@ -185,7 +185,7 @@ export default {
         const answer = item.answer
         const notes = item.notes.trim()
         const tags = item.tags.join(" ").trim()
-        content += seq + '\t' + question + '\t' + options + '\t' + answer + '\t' + notes +'\t' + tags + '\n'
+        content += seq + '\t' + question + '\t' + options + '\t' + answer + '\t' + notes +'\t\t' + tags + '\n'
       }
       const blob = new Blob([content], {type: "text/plain;charset=utf-8"})
       saveAs(blob, "start-from-" + this.startNumber + '.txt')
@@ -200,7 +200,7 @@ export default {
       let question = '"' + item.question + '"'
       for (let i=0; i< answer_array.length;i++) {
         console.log('before replace', question)
-        question = question.replace("【】", '<font color=""#ef3461"">{{c1::【' + answer_array[i] + '】}}</font>')
+        question = question.replace("【】", '{{c1::【' + answer_array[i] + '】}}')
         console.log('after replace', question)
       }
       return question
