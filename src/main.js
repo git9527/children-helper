@@ -4,6 +4,10 @@ import './plugins/element.js'
 import router from './router'
 import uweb from 'vue-uweb'
 
+import VueKonva from 'vue-konva';
+
+Vue.use(VueKonva)
+
 Vue.config.productionTip = false
 
 Vue.use(uweb, '1278161794')
