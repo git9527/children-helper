@@ -122,6 +122,7 @@ export default {
           this.stageSize.height = image.height
         }
       }
+      this.recs = []
     },
     handleMouseDown(e) {
       if (e.target.index === 0) {
