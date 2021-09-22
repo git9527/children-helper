@@ -80,8 +80,8 @@ export default {
           finalArray.push({
             sX: (rec.startPointX / totalWidth * 100).toFixed(2),
             sY: (rec.startPointY / totalHeight * 100).toFixed(2),
-            eX: ((rec.startPointX + rec.width) / totalWidth * 100).toFixed(2),
-            eY: ((rec.startPointY + rec.height) / totalHeight * 100).toFixed(2)
+            w: (rec.width / totalWidth * 100).toFixed(2),
+            h: (rec.height / totalHeight * 100).toFixed(2)
           })
         }
         return JSON.stringify(finalArray)
