@@ -41,11 +41,6 @@ const routes = [
     component: () => import('../views/hidden/yijian.vue')
   },
   {
-    path: '/hidden/image',
-    name: 'hidden-image',
-    component: () => import('../views/hidden/image.vue')
-  },
-  {
     path: '/about',
     name: 'about',
     // route level code-splitting
