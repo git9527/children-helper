@@ -10,15 +10,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       # 使用 node:10
-      - name: use Node.js 10.x
-        uses: actions/setup-node@v1
+      - name: Setup Node and cache
+        uses: actions/setup-node@v2
         with:
-          node-version: 10.x
-      # yarn install
+          node-version: '12'
+          cache: 'yarn' # or yarn
+      # Yarn install
+      - name: install dependencies
+        run: yarn install
       - name: build and deploy
-        run: |
-          yarn install
-          yarn build
+        run: yarn build
       - name: setup aliyun oss
         uses: manyuanrong/setup-ossutil@master
         with:

@@ -37,7 +37,8 @@
       </ul>
 
       <div class="footer">
-        <span class="date">日期：____________</span>
+        <span class="date">开始时间：____________</span>
+        <span class="date">结束时间：____________</span>
         <span class="score">得分：____________</span>
       </div>
     </div>
@@ -59,7 +60,7 @@
         formInline: {
           calType: 'mix',
           calCount: 100,
-          calMax: '30'
+          calMax: '100'
         },
         items: []
       }
