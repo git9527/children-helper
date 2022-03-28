@@ -36,6 +36,11 @@ const routes = [
     component: () => import('../views/secret/anki-select.vue')
   },
   {
+    path: '/secret/notes',
+    name: 'secret-notes',
+    component: () => import('../views/secret/question-notes.vue')
+  },
+  {
     path: '/hidden/yijian',
     name: 'hidden-yijian',
     component: () => import('../views/hidden/yijian.vue')

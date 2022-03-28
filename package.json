@@ -8,11 +8,13 @@
     "lint": "vue-cli-service lint --fix"
   },
   "dependencies": {
+    "axios": "^0.26.1",
     "clipboard": "^2.0.10",
     "core-js": "^3.21.1",
     "element-ui": "^2.15.6",
     "file-saver": "^2.0.5",
     "html2canvas": "^1.4.1",
+    "iconv-lite": "^0.6.3",
     "js-base64": "^3.7.2",
     "jspdf": "^2.5.1",
     "konva": "^8.3.5",
