@@ -11,6 +11,8 @@
 </template>
 
 <script>
+  import Operators from "@/util/Operators";
+
   export default {
     props: {
       formula: {
@@ -23,13 +25,11 @@
     },
     methods: {
       getOperation (index) {
-        const text = this.formula.operations[index]
-        if (text === 'plus') {
-          return '+'
-        } else if (text === 'minus') {
-          return '-'
+        const operator = this.formula.operations[index]
+        if (operator === undefined) {
+          return Operators.EQUALS.label
         } else {
-          return '='
+          return operator.label
         }
       },
       drawSquare () {
@@ -70,7 +70,7 @@
     margin-left: -30px;
   }
   .number {
-    font-size: 26px;
+    font-size: 25px;
   }
   .operation {
     font-size: 30px;

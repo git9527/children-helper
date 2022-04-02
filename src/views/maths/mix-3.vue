@@ -1,21 +1,11 @@
 <template>
   <div class="app-container">
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
-      <el-form-item label="运算类型">
-        <el-select v-model="formInline.calType">
-          <el-option label="加法" value="plus"></el-option>
-          <el-option label="减法" value="minus"></el-option>
-          <el-option label="加减混合" value="mix"></el-option>
-        </el-select>
-      </el-form-item>
       <el-form-item label="题目数量">
         <el-input-number v-model="formInline.calCount" :min="12" :step="4" :max="100" step-strictly></el-input-number>
       </el-form-item>
       <el-form-item label="最终结果范围">
         <el-select v-model="formInline.calMax">
-          <el-option label="10以内" value="10"></el-option>
-          <el-option label="20以内" value="20"></el-option>
-          <el-option label="30以内" value="30"></el-option>
           <el-option label="50以内" value="50"></el-option>
           <el-option label="100以内" value="100"></el-option>
         </el-select>
@@ -54,7 +44,6 @@
   import StandardNumber from './standard'
   import { generatePdf } from '../../vendors/pdf'
   import MathGenerator from '../../util/math-generator'
-  import Operators from "../../util/Operators";
 
   export default {
     components: {
@@ -63,7 +52,6 @@
     data() {
       return {
         formInline: {
-          calType: 'mix',
           calCount: 100,
           calMax: '100'
         },
@@ -75,7 +63,7 @@
     },
     methods: {
       downloadPdf () {
-        generatePdf('三数加减', 'full-page')
+        generatePdf('四则运算混合', 'full-page')
       },
       generateItems () {
         this.items = []
@@ -86,43 +74,18 @@
         }
       },
       getSingle () {
-        const operation1 = this.getRandomOperation()
-        const max =  parseInt(this.formInline.calMax)
-        let a = MathGenerator.randomInRange(0, max)
-        if (a === 0) {
-          a = MathGenerator.randomInRange(0, max)
-        }
-        const b = this.getRandomNumber(operation1, a)
-        const operation2 = this.getRandomOperation()
-        let c = 0
-        if (operation1 === Operators.ADDITION) {
-          c = this.getRandomNumber(operation2, a + b)
-        } else {
-          c = this.getRandomNumber(operation2, a - b)
-        }
-        return {
-          numbers: [a, b, c],
-          operations: [operation1, operation2]
-        }
-      },
-      getRandomNumber (operation, a) {
-        const rest = parseInt(this.formInline.calMax) - a
-        let b = 0
-        if (operation === Operators.ADDITION) {
-          b = MathGenerator.randomInRange(0, rest)
-        } else {
-          b = MathGenerator.randomInRange(0, a)
-        }
-        return b
-      },
-      getRandomOperation () {
-        let operation = Operators.ADDITION
-        if (this.formInline.calType === 'minus') {
-          operation = Operators.SUBSTRUCTION
-        } else if (this.formInline.calType === 'mix') {
-          operation = Math.round(Math.random()*10) >=5 ? Operators.ADDITION: Operators.SUBSTRUCTION
-        }
-        return operation
+        const max = parseInt(this.formInline.calMax)
+        const a = MathGenerator.randomInRange(1, max)
+        const numbers = [a]
+        const operations = []
+        const randomCombine1 = MathGenerator.getRandomNumberAndOperator(a, max)
+        numbers.push(randomCombine1.number)
+        operations.push(randomCombine1.operator)
+        const result1 = MathGenerator.calculateQuestion(numbers, operations)
+        const randomCombine2 = MathGenerator.getRandomNumberAndOperator(result1, max)
+        numbers.push(randomCombine2.number)
+        operations.push(randomCombine2.operator)
+        return MathGenerator.addParenthesesIfNeed(numbers, operations)
       },
       printContent () {
         window.print()

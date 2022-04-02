@@ -24,7 +24,10 @@
         <el-button icon="el-icon-refresh" type="primary" plain @click="generateItems">生成试题</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button icon="el-icon-printer" type="success" plain @click="downloadPdf">下载为PDF</el-button>
+        <el-button icon="el-icon-document" type="success" plain @click="downloadPdf">下载为PDF</el-button>
+      </el-form-item>
+      <el-form-item>
+        <el-button icon="el-icon-printer" type="warning" plain @click="printContent">直接打印</el-button>
       </el-form-item>
     </el-form>
 
@@ -37,7 +40,8 @@
       </ul>
 
       <div class="footer">
-        <span class="date">日期：____________</span>
+        <span class="date">开始时间：____________</span>
+        <span class="date">结束时间：____________</span>
         <span class="score">得分：____________</span>
       </div>
     </div>
@@ -49,6 +53,8 @@
   import Single from './single-item'
   import StandardNumber from './standard'
   import { generatePdf } from '../../vendors/pdf'
+  import MathGenerator from '../../util/math-generator'
+  import Operators from "../../util/Operators";
 
   export default {
     components: {
@@ -73,13 +79,13 @@
       },
       generateItems () {
         this.items = []
-        let operation = 'plus'
+        let operation = Operators.ADDITION
         if (this.formInline.calType === 'minus') {
-          operation = 'minus'
+          operation = Operators.SUBSTRUCTION
         }
         for (let i = 0; i < this.formInline.calCount; i++) {
           if (this.formInline.calType === 'mix') {
-            operation = Math.round(Math.random()*10) >=5 ? 'plus': 'minus'
+            operation = Math.round(Math.random()*10) >=5 ? Operators.ADDITION: Operators.SUBSTRUCTION
           }
           const obj = this.getSingle(operation)
           obj.id = i
@@ -87,26 +93,24 @@
         }
       },
       getSingle (operation) {
-        const max =  parseInt(this.formInline.calMax)
-        let a = this.randomNumber(0, max)
+        const max = parseInt(this.formInline.calMax)
+        let a = MathGenerator.randomInRange(0, max)
         if (a === 0) {
-          a = this.randomNumber(0, max)
+          a = MathGenerator.randomInRange(0, max)
         }
         let b = 0
-        if (operation === 'plus') {
-           b = this.randomNumber(0, max-a)
+        if (operation === Operators.ADDITION) {
+           b = MathGenerator.randomInRange(0, max-a)
         } else {
-           b = this.randomNumber(0, a)
+           b = MathGenerator.randomInRange(0, a)
         }
         return {
           numbers: [a, b],
           operations: [operation]
         }
       },
-      randomNumber (a, b) {
-        const maxNum = a > b ? a : b
-        const minNum = a > b ? b : a
-        return Math.round(Math.random()*(maxNum - minNum))
+      printContent () {
+        window.print()
       }
     }
   }

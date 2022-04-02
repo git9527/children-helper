@@ -4,6 +4,7 @@
       <router-link to="/">两数加减</router-link> |
       <router-link to="/math/plus-minus/3">三数加减</router-link> |
       <router-link to="/math/plus-minus/5">五数加减</router-link> |
+      <router-link to="/math/mix/3">四则混合</router-link> |
       <router-link to="/secret/haluo">哈啰二维码</router-link> |
       <router-link to="/secret/anki">Anki题库</router-link> |
       <router-link to="/about">About</router-link>
@@ -55,6 +56,20 @@
   }
   .github-corner .octo-arm {
     animation:octocat-wave 560ms ease-in-out
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  #full-page, #full-page * {
+    visibility: visible;
+  }
+  #full-page {
+    position: absolute;
+    left: 0;
+    top: 0;
   }
 }
 </style>

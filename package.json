@@ -18,7 +18,9 @@
     "js-base64": "^3.7.2",
     "jspdf": "^2.5.1",
     "konva": "^8.3.5",
+    "mathjs": "^10.4.2",
     "qrcode": "^1.5.0",
+    "random": "^3.0.6",
     "vue": "^2.6.12",
     "vue-konva": "^3.0.0",
     "vue-router": "^3.4.9",
@@ -32,6 +34,7 @@
     "babel-eslint": "^10.1.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
+    "jest": "^27.5.1",
     "vue-cli-plugin-element": "^1.0.1",
     "vue-template-compiler": "^2.6.12"
   },

@@ -21,6 +21,11 @@ const routes = [
     component: () => import('../views/maths/plus-minus-5.vue')
   },
   {
+    path: '/math/mix/3',
+    name: 'math-mix-3',
+    component: () => import('../views/maths/mix-3.vue')
+  },
+  {
     path: '/secret/haluo',
     name: 'secret-haluo',
     component: () => import('../views/secret/haluo.vue')
