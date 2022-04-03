@@ -74,7 +74,7 @@
 }
 
 .app-container .el-input-number--medium {
-  width: 120px;
+  width: 90px;
 }
 
 .app-container .el-input--suffix .el-input__inner {

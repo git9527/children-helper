@@ -9,7 +9,7 @@
         </el-select>
       </el-form-item>
       <el-form-item label="题目数量">
-        <el-input-number v-model="formInline.calCount" :min="12" :step="4" :max="100" step-strictly size="medium"></el-input-number>
+        <el-input-number v-model="formInline.calCount" :min="12" :step="4" :max="100" step-strictly size="medium" controls-position="right"></el-input-number>
       </el-form-item>
       <el-form-item label="最终结果范围">
         <el-select v-model="formInline.calMax" size="medium">
