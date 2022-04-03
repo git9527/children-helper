@@ -84,4 +84,8 @@
 .app-container .el-button--medium {
   padding: 10px;
 }
+
+.footer {
+  margin-top: 5px;
+}
 </style>

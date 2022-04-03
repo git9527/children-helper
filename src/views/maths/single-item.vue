@@ -81,3 +81,14 @@
     margin-top: 5px;
   }
 </style>
+
+<style>
+.single-item {
+  border-right: 1px solid black;
+  border-bottom: 1px solid black;
+  list-style-type: none;
+  height: 39px;
+  float: left;
+  line-height: 39px;
+}
+</style>

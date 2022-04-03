@@ -163,19 +163,10 @@
     padding: 0;
   }
   .single-item {
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
-    list-style-type: none;
     width: 360px;
-    height: 40px;
-    float: left;
-    line-height: 40px;
   }
   .single-item >>> .operation {
     padding-left: 1px;
-  }
-  .footer {
-    margin-top: 10px;
   }
   .date {
     margin: 0 30px;
