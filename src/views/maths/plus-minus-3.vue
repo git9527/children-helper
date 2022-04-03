@@ -88,10 +88,7 @@
       getSingle () {
         const operation1 = this.getRandomOperation()
         const max =  parseInt(this.formInline.calMax)
-        let a = MathGenerator.randomInRange(0, max)
-        if (a === 0) {
-          a = MathGenerator.randomInRange(0, max)
-        }
+        let a = MathGenerator.randomInRange(1, max)
         const b = this.getRandomNumber(operation1, a)
         const operation2 = this.getRandomOperation()
         let c = 0
@@ -109,9 +106,9 @@
         const rest = parseInt(this.formInline.calMax) - a
         let b = 0
         if (operation === Operators.ADDITION) {
-          b = MathGenerator.randomInRange(0, rest)
+          b = MathGenerator.randomInRange(1, rest)
         } else {
-          b = MathGenerator.randomInRange(0, a)
+          b = MathGenerator.randomInRange(1, a)
         }
         return b
       },
