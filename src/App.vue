@@ -72,4 +72,16 @@
     top: 0;
   }
 }
+
+.app-container .el-input-number--medium {
+  width: 120px;
+}
+
+.app-container .el-input--suffix .el-input__inner {
+  width: 105px;
+}
+
+.app-container .el-button--medium {
+  padding: 10px;
+}
 </style>

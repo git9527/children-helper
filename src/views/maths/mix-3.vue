@@ -2,22 +2,22 @@
   <div class="app-container">
     <el-form :inline="true" :model="formInline" class="demo-form-inline">
       <el-form-item label="题目数量">
-        <el-input-number v-model="formInline.calCount" :min="12" :step="4" :max="100" step-strictly></el-input-number>
+        <el-input-number v-model="formInline.calCount" :min="12" :step="4" :max="100" step-strictly size="medium"></el-input-number>
       </el-form-item>
       <el-form-item label="最终结果范围">
-        <el-select v-model="formInline.calMax">
+        <el-select v-model="formInline.calMax" size="medium">
           <el-option label="50以内" value="50"></el-option>
           <el-option label="100以内" value="100"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button icon="el-icon-refresh" type="primary" plain @click="generateItems">生成试题</el-button>
+        <el-button size="medium" icon="el-icon-refresh" type="primary" plain @click="generateItems">生成试题</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button icon="el-icon-document" type="success" plain @click="downloadPdf">下载为PDF</el-button>
+        <el-button size="medium" icon="el-icon-document" type="success" plain @click="downloadPdf">下载为PDF</el-button>
       </el-form-item>
       <el-form-item>
-        <el-button icon="el-icon-printer" type="warning" plain @click="printContent">直接打印</el-button>
+        <el-button size="medium" icon="el-icon-printer" type="warning" plain @click="printContent">直接打印</el-button>
       </el-form-item>
     </el-form>
 
