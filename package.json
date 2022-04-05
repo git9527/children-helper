@@ -22,9 +22,9 @@
     "qrcode": "^1.5.0",
     "random": "^3.0.6",
     "vue": "^2.6.12",
+    "vue-ba": "^1.2.8",
     "vue-konva": "^3.0.0",
-    "vue-router": "^3.4.9",
-    "vue-uweb": "^0.2.2"
+    "vue-router": "^3.4.9"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "^4.5.9",
