@@ -52,6 +52,7 @@ export default {
           const part2 = part1.replace('is-normal">\r\n\t\t\t\t\t\t\t\t<p>', '').replace('</div>', '')
           document.getElementById('notes-container').innerHTML = part2
           this.isSubmitting = false
+          this.keyword = ''
         })
       })
     }
