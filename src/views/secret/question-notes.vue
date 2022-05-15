@@ -28,7 +28,7 @@ export default {
   methods: {
     onSubmit() {
       this.isSubmitting = true
-      const proxy = 'https://summer-star-0c32.13148461135.workers.dev'
+      const proxy = 'https://note.freenom-workers.ml/'
       axios.get(proxy + '/3gmfw/search/' + this.keyword).then(resp => {
         const originData = resp.data
         const links = originData.match(/".*html/)
