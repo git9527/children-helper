@@ -21,7 +21,7 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button icon="el-icon-refresh" type="primary" plain @click="generateItems" size="medium">生成试题</el-button>
+        <el-button icon="el-icon-refresh" type="primary" plain @click="generateItems(1)" size="medium">生成试题</el-button>
       </el-form-item>
       <el-form-item>
         <el-button icon="el-icon-document" type="success" plain @click="downloadPdf" size="medium">下载为PDF</el-button>
@@ -35,7 +35,7 @@
     </el-form>
 
     <div id="full-page">
-      <div class="single-page" v-for="(page, pageIndex) of pageItems" :key="pageIndex">
+      <div class="single-page" v-for="(page, pageIndex) of pageItems" :key="pageIndex" :id="pageIndex">
         <standard-number></standard-number>
         <ul class="items-table" id="items-table">
           <li class="single-item" v-for="(item, index) of page.items" :key="index">
@@ -173,9 +173,11 @@
   #full-page {
     width: 800px;
     margin: 0 auto;
+    float: none;
   }
   .single-page {
     padding-top: 10px;
     page-break-after: always;
+    page-break-inside: avoid;
   }
 </style>
