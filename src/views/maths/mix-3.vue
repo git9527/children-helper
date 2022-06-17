@@ -19,20 +19,25 @@
       <el-form-item>
         <el-button size="medium" icon="el-icon-printer" type="warning" plain @click="printContent">直接打印</el-button>
       </el-form-item>
+      <el-form-item>
+        <el-button icon="el-icon-printer" type="danger" plain @click="printTenCopy" size="medium">打印10份</el-button>
+      </el-form-item>
     </el-form>
 
     <div id="full-page">
-      <standard-number></standard-number>
-      <ul class="items-table" id="items-table">
-        <li class="single-item" v-for="(item, index) of items" :key="index">
-          <single :formula="item"></single>
-        </li>
-      </ul>
+      <div class="single-page" v-for="(page, pageIndex) of pageItems" :key="pageIndex" :id="pageIndex">
+        <standard-number></standard-number>
+        <ul class="items-table" id="items-table">
+          <li class="single-item" v-for="(item, index) of page.items" :key="index">
+            <single :formula="item"></single>
+          </li>
+        </ul>
 
-      <div class="footer">
-        <span class="date">开始时间：____________</span>
-        <span class="date">结束时间：____________</span>
-        <span class="score">得分：____________</span>
+        <div class="footer">
+          <span class="date">开始时间：____________</span>
+          <span class="date">结束时间：____________</span>
+          <span class="score">得分：____________</span>
+        </div>
       </div>
     </div>
 
@@ -55,7 +60,7 @@
           calCount: 100,
           calMax: '100'
         },
-        items: []
+        pageItems: []
       }
     },
     mounted () {
@@ -65,12 +70,18 @@
       downloadPdf () {
         generatePdf('四则运算混合', 'full-page')
       },
-      generateItems () {
-        this.items = []
-        for (let i = 0; i < this.formInline.calCount; i++) {
-          const obj = this.getSingle()
-          obj.id = i
-          this.items.push(obj)
+      generateItems (count=1) {
+        this.pageItems =[]
+        for (let j = 0; j < count; j++) {
+          var items = []
+          for (let i = 0; i < this.formInline.calCount; i++) {
+            const obj = this.getSingle()
+            obj.id = j + '-' + i
+            items.push(obj)
+          }
+          this.pageItems.push({
+            items: items
+          })
         }
       },
       getSingle () {
@@ -89,6 +100,12 @@
       },
       printContent () {
         window.print()
+      },
+      printTenCopy () {
+        this.generateItems(10)
+        setTimeout(() => {
+          this.printContent()
+        }, 1000)
       }
     }
   }
