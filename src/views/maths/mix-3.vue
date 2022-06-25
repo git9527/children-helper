@@ -11,7 +11,7 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button size="medium" icon="el-icon-refresh" type="primary" plain @click="generateItems">生成试题</el-button>
+        <el-button size="medium" icon="el-icon-refresh" type="primary" plain @click="generateItems(1)">生成试题</el-button>
       </el-form-item>
       <el-form-item>
         <el-button size="medium" icon="el-icon-document" type="success" plain @click="downloadPdf">下载为PDF</el-button>
