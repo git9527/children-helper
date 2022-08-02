@@ -21,7 +21,7 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button icon="el-icon-refresh" type="primary" plain @click="generateItems" size="medium">生成试题</el-button>
+        <el-button icon="el-icon-refresh" type="primary" plain @click="generateItems(1)" size="medium">生成试题</el-button>
       </el-form-item>
       <el-form-item>
         <el-button icon="el-icon-document" type="success" plain @click="downloadPdf" size="medium">下载为PDF</el-button>
@@ -29,20 +29,25 @@
       <el-form-item>
         <el-button icon="el-icon-printer" type="warning" plain @click="printContent" size="medium">直接打印</el-button>
       </el-form-item>
+      <el-form-item>
+        <el-button icon="el-icon-printer" type="danger" plain @click="printTenCopy" size="medium">打印10份</el-button>
+      </el-form-item>
     </el-form>
 
     <div id="full-page">
-      <standard-number></standard-number>
-      <ul class="items-table" id="items-table">
-        <li class="single-item" v-for="(item, index) of items" :key="index">
-          <single :formula="item"></single>
-        </li>
-      </ul>
-
-      <div class="footer">
-        <span class="date">开始时间：____________</span>
-        <span class="date">结束时间：____________</span>
-        <span class="score">得分：____________</span>
+      <div class="single-page" v-for="(page, pageIndex) of pageItems" :key="pageIndex" :id="pageIndex">
+        <standard-number></standard-number>
+        <ul class="items-table" id="items-table">
+          <li class="single-item" v-for="(item, index) of page.items" :key="index">
+            <single :formula="item"></single>
+          </li>
+        </ul>
+  
+        <div class="footer">
+          <span class="date">开始时间：____________</span>
+          <span class="date">结束时间：____________</span>
+          <span class="score">得分：____________</span>
+        </div>
       </div>
     </div>
 
@@ -67,7 +72,7 @@
           calCount: 100,
           calMax: '30'
         },
-        items: []
+        pageItems: []
       }
     },
     mounted () {
@@ -77,20 +82,32 @@
       downloadPdf () {
         generatePdf('两数加减', 'full-page')
       },
-      generateItems () {
-        this.items = []
-        let operation = Operators.ADDITION
-        if (this.formInline.calType === 'minus') {
-          operation = Operators.SUBSTRUCTION
-        }
-        for (let i = 0; i < this.formInline.calCount; i++) {
-          if (this.formInline.calType === 'mix') {
-            operation = Math.round(Math.random()*10) >=5 ? Operators.ADDITION: Operators.SUBSTRUCTION
+      generateItems (count=1) {
+        this.pageItems =[]
+        for (let j = 0; j < count; j++) {
+          var items = []
+          let operation = Operators.ADDITION
+          if (this.formInline.calType === 'minus') {
+            operation = Operators.SUBSTRUCTION
           }
-          const obj = this.getSingle(operation)
-          obj.id = i
-          this.items.push(obj)
+          for (let i = 0; i < this.formInline.calCount; i++) {
+            if (this.formInline.calType === 'mix') {
+              operation = Math.round(Math.random() * 10) >= 5 ? Operators.ADDITION : Operators.SUBSTRUCTION
+            }
+            const obj = this.getSingle(operation)
+            obj.id = i
+            items.push(obj)
+          }
+          this.pageItems.push({
+            items: items
+          })
         }
+      },
+      printTenCopy() {
+        this.generateItems(10)
+        setTimeout(() => {
+          this.printContent()
+        }, 1000)
       },
       getSingle (operation) {
         const max = parseInt(this.formInline.calMax)
@@ -142,8 +159,13 @@
     margin: 0 30px;
   }
   #full-page {
-    padding-top: 10px;
     width: 800px;
     margin: 0 auto;
+    float: none;
+  }
+  .single-page {
+    padding-top: 10px;
+    page-break-after: always;
+    page-break-inside: avoid;
   }
 </style>
