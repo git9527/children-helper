@@ -16,15 +16,15 @@ jobs:
           node-version: '12'
           cache: 'yarn' # or yarn
       # Yarn install
-      - name: install dependencies
+      - name: Install dependencies
         run: yarn install
-      - name: build and deploy
+      - name: Build and deploy
         run: yarn build
-      - name: setup aliyun oss
+      - name: Setup aliyun oss
         uses: manyuanrong/setup-ossutil@master
         with:
           endpoint: oss-cn-beijing.aliyuncs.com
           access-key-id: ${{ secrets.OSS_KEY_ID }}
           access-key-secret: ${{ secrets.OSS_KEY_SECRET }}
-      - name: copy file to oss
-        run: ossutil cp -rf ./dist oss://${{ secrets.OSS_KEY_BUCKET }}/
+      - name: Sync file to oss
+        run: ossutil sync dist oss://${{ secrets.OSS_KEY_BUCKET }}/ --delete --force
