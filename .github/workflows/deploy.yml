@@ -5,16 +5,15 @@ on:
     branches: [ master ]
 
 jobs:
-  build:
+  Build_on_Ubuntu:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      # 使用 node:10
+      - uses: actions/checkout@v3
       - name: Setup Node and cache
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v3
         with:
-          node-version: '12'
-          cache: 'yarn' # or yarn
+          node-version: '16'
+          cache: 'yarn'
       # Yarn install
       - name: Install dependencies
         run: yarn install
