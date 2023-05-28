@@ -36,11 +36,6 @@ const routes = [
     component: () => import('../views/secret/subscribe.vue')
   },
   {
-    path: '/secret/anki',
-    name: 'secret-anki',
-    component: () => import('../views/secret/anki-select.vue')
-  },
-  {
     path: '/secret/notes',
     name: 'secret-notes',
     component: () => import('../views/secret/question-notes.vue')
@@ -49,6 +44,11 @@ const routes = [
     path: '/hidden/yijian',
     name: 'hidden-yijian',
     component: () => import('../views/hidden/yijian.vue')
+  },
+  {
+    path: '/hidden/barcode',
+    name: 'hidden-barcode',
+    component: () => import('../views/hidden/barcode.vue')
   },
   {
     path: '/about',

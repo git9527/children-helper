@@ -6,7 +6,6 @@
       <router-link to="/math/plus-minus/5">五数加减</router-link> |
       <router-link to="/math/mix/3">四则混合</router-link> |
       <router-link to="/secret/haluo">哈啰二维码</router-link> |
-      <router-link to="/secret/anki">Anki题库</router-link> |
       <router-link to="/about">About</router-link>
     </div>
     <router-view/>

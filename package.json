@@ -16,6 +16,7 @@
     "html2canvas": "^1.4.1",
     "iconv-lite": "^0.6.3",
     "js-base64": "^3.7.2",
+    "jsbarcode": "^3.11.5",
     "jspdf": "^2.5.1",
     "konva": "^8.3.5",
     "mathjs": "^10.4.2",
