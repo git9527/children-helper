@@ -3,33 +3,34 @@
     <div class="form-container">
       <el-form label-width="90px" :inline="true">
         <el-form-item label="产品编号" class="number-input">
-          <el-input v-model="productCode" placeholder="请输入产品编号" clearable></el-input>
+          <el-input v-model="productCode" placeholder="产品编号" clearable></el-input>
         </el-form-item>
         <el-form-item label="分隔符" class="number-input">
-          <el-input v-model="separator" placeholder="请输入产品编号" clearable></el-input>
+          <el-input v-model="separator" placeholder="分隔符" clearable></el-input>
         </el-form-item>
         <el-form-item label="开始序号" class="number-input">
-          <el-input v-model="beginSeq" placeholder="产品编号" clearable></el-input>
+          <el-input v-model="beginSeq" placeholder="开始序号" clearable></el-input>
         </el-form-item>
         <el-form-item label="结束序号" class="number-input">
-          <el-input v-model="endSeq" placeholder="产品编号" clearable></el-input>
+          <el-input v-model="endSeq" placeholder="结束序号" clearable></el-input>
         </el-form-item>
         <el-form-item label="序号位数" class="number-input">
-          <el-input v-model="seqLength" placeholder="产品编号" clearable></el-input>
+          <el-input v-model="seqLength" placeholder="序号位数" clearable></el-input>
         </el-form-item>
         <el-form-item>
-          <el-button icon="el-icon-refresh" type="primary" plain @click="generateItems()" size="medium">生成条码</el-button>
+          <el-button icon="el-icon-refresh" type="primary" :loading="isGenerating" plain @click="generateItems()" size="medium">生成条码</el-button>
         </el-form-item>
       </el-form>
       <div id="images-container">
-        <svg :id="item.seq" v-for="(item, index) of items" :key="index"></svg>
+        <canvas :id="item.seq" v-for="(item, index) of items" :key="index" v-show="index < 10"></canvas>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import jsbarcode from 'jsbarcode'
+import jsBarcode from 'jsbarcode'
+import { jsPDF } from "jspdf";
 
 
 export default {
@@ -38,10 +39,14 @@ export default {
       productCode: '215014',
       separator: '-',
       beginSeq: 1,
-      endSeq: 2,
+      endSeq: 100,
       seqLength: 5,
-      items: []
+      items: [],
+      isGenerating: false
     }
+  },
+  computed: {
+    
   },
   mounted() {
   },
@@ -52,6 +57,7 @@ export default {
       return num;
     },
     generateItems () {
+      this.isGenerating = true
       this.items = []
       for (let i = this.beginSeq; i <= this.endSeq; i++) {
         this.items.push({
@@ -59,13 +65,24 @@ export default {
         })
       }
       this.$nextTick(() => {
+        const doc = new jsPDF('l', 'mm', [60, 30]);
         for (let i = this.beginSeq; i <= this.endSeq; i++) {
-          jsbarcode('#' + 'barcode-' + this.pad(i), this.productCode + " " + this.separator + " " + this.pad(i), {
+          let id = 'barcode-' + this.pad(i)
+          jsBarcode('#' + id, this.productCode + " " + this.separator + " " + this.pad(i), {
             displayValue: true,
             format: 'CODE128B',
             ean128: true
           })
+          let canvas = document.getElementById(id)
+          doc.addImage(canvas.toDataURL("image/jpeg"), 'JPEG', 5, 5, 50, 20)
+          if (i < this.endSeq) {
+            doc.addPage()
+          }
         }
+        const from = this.productCode + '-' + this.pad(this.beginSeq)
+        const end = this.productCode + '-' + this.pad(this.endSeq)
+        doc.save('条码' + from + '_' + end + ".pdf");
+        this.isGenerating = false
       })
     }
   }
