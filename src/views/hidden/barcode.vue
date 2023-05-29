@@ -22,7 +22,10 @@
         </el-form-item>
       </el-form>
       <div id="images-container">
-        <canvas :id="item.seq" v-for="(item, index) of items" :key="index" v-show="index < 10"></canvas>
+        <div v-for="(item, index) of items" :key="index" v-show="index < 5">
+          <canvas :id="item.seq"></canvas>
+          <div>{{item.data}}</div>
+        </div>
       </div>
     </div>
   </div>
@@ -61,16 +64,18 @@ export default {
       this.items = []
       for (let i = this.beginSeq; i <= this.endSeq; i++) {
         this.items.push({
-          seq: 'barcode-' + this.pad(i)
+          seq: 'barcode-' + this.pad(i),
+          data: this.productCode + " " + this.separator + " " + this.pad(i)
         })
       }
       this.$nextTick(() => {
-        const doc = new jsPDF('l', 'mm', [60, 30]);
+        const doc = new jsPDF('l', 'mm', [54, 30]);
         for (let i = this.beginSeq; i <= this.endSeq; i++) {
           let id = 'barcode-' + this.pad(i)
-          jsBarcode('#' + id, this.productCode + " " + this.separator + " " + this.pad(i), {
+          let content = this.productCode + " " + this.separator + " " + this.pad(i)
+          jsBarcode('#' + id, content, {
             format: 'CODE128Fix',
-            displayValue: true,
+            displayValue: false,
             ean128: false,
             fontSize: 40,
             height: 50,
@@ -78,7 +83,8 @@ export default {
             textMargin: 0
           })
           let canvas = document.getElementById(id)
-          doc.addImage(canvas.toDataURL("image/jpeg"), 'JPEG', 5, 5, 50, 20)
+          doc.addImage(canvas.toDataURL("image/jpeg"), 'JPEG', 2, 2, 50, 20)
+          doc.text(content, 27, 25, 'center')
           if (i < this.endSeq) {
             doc.addPage()
           }
