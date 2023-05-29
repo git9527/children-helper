@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import jsBarcode from 'jsbarcode'
+import jsBarcode from 'jsbarcode-fixed'
 import { jsPDF } from "jspdf";
 
 
@@ -69,9 +69,13 @@ export default {
         for (let i = this.beginSeq; i <= this.endSeq; i++) {
           let id = 'barcode-' + this.pad(i)
           jsBarcode('#' + id, this.productCode + " " + this.separator + " " + this.pad(i), {
+            format: 'CODE128Fix',
             displayValue: true,
-            format: 'CODE128B',
-            ean128: true
+            ean128: false,
+            fontSize: 40,
+            height: 50,
+            font: 'sans-serif',
+            textMargin: 0
           })
           let canvas = document.getElementById(id)
           doc.addImage(canvas.toDataURL("image/jpeg"), 'JPEG', 5, 5, 50, 20)

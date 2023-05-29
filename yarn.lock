@@ -6325,10 +6325,10 @@ js-yaml@^3.13.0, js-yaml@^3.13.1:
     argparse "^1.0.7"
     esprima "^4.0.0"
 
-jsbarcode@^3.11.5:
-  version "3.11.5"
-  resolved "https://registry.npmjs.org/jsbarcode/-/jsbarcode-3.11.5.tgz#390b3efd0271f35b9d68c7b8af6e972445969014"
-  integrity sha512-zv3KsH51zD00I/LrFzFSM6dst7rDn0vIMzaiZFL7qusTjPZiPtxg3zxetp0RR7obmjTw4f6NyGgbdkBCgZUIrA==
+jsbarcode-fixed@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/jsbarcode-fixed/-/jsbarcode-fixed-1.0.1.tgz#3c8c470cd0fcc162b2ca7494888529e04937b488"
+  integrity sha512-YwhGNAEGD06n8cy2D4/mmj6A6i98elz/8I/GTEGs5K7E1coXPadhSVOde8Ke7GfMPTe2x5prAPsCk5KPkDxR8g==
 
 jsbn@~0.1.0:
   version "0.1.1"
