@@ -84,8 +84,8 @@ export default {
             textMargin: 0
           })
           let canvas = document.getElementById(id)
-          doc.addImage(canvas.toDataURL("image/jpeg"), 'JPEG', 5, 1, 40, 12)
-          doc.text(content, 25, 14.5, 'center')
+          doc.addImage(canvas.toDataURL("image/jpeg"), 'JPEG', 5, -0.5, 40, 12)
+          doc.text(content, 25, 13.5, 'center')
           if (i < this.endSeq) {
             doc.addPage()
           }
