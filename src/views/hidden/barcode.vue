@@ -69,8 +69,8 @@ export default {
         })
       }
       this.$nextTick(() => {
-        const doc = new jsPDF('l', 'mm', [50, 20]);
-        doc.setFontSize(14);
+        const doc = new jsPDF('l', 'mm', [50, 15]);
+        doc.setFontSize(10);
         for (let i = this.beginSeq; i <= this.endSeq; i++) {
           let id = 'barcode-' + this.pad(i)
           let content = this.productCode + " " + this.separator + " " + this.pad(i)
@@ -85,7 +85,7 @@ export default {
           })
           let canvas = document.getElementById(id)
           doc.addImage(canvas.toDataURL("image/jpeg"), 'JPEG', 5, 1, 40, 12)
-          doc.text(content, 25, 17, 'center')
+          doc.text(content, 25, 14.5, 'center')
           if (i < this.endSeq) {
             doc.addPage()
           }
