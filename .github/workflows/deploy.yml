@@ -1,8 +1,11 @@
 name: deploy to aliyun oss
 
 on:
-  push:
-    branches: [ master ]
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version number'
+        default: '1.5'
 
 jobs:
   Build_on_Ubuntu:
