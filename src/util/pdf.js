@@ -61,7 +61,7 @@ async function generatePdf(details) {
     const page = pdfDoc.addPage([595.28, 841.89]); // A4 尺寸
 
     const fontBytes = fs.readFileSync('./src/assets/fonts/SimSun.ttf');
-    const customFont = await pdfDoc.embedFont(fontBytes);
+    const customFont = await pdfDoc.embedFont(fontBytes, { subset: true });
 
     addCenteredText(page, '张江科学城综合党委', customFont, baseFontSize + 2, 780);
     addRightAlignedText(page, '党员组织关系介绍信（系统内）     通知联', customFont, baseFontSize, 730)
