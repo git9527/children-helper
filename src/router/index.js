@@ -51,6 +51,11 @@ const routes = [
     component: () => import('../views/hidden/barcode.vue')
   },
   {
+    path: '/hidden/party',
+    name: 'hidden-party',
+    component: () => import('../views/hidden/party.vue')
+  },
+  {
     path: '/about',
     name: 'about',
     // route level code-splitting

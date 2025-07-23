@@ -1,14 +1,14 @@
-const fontkit = require('@pdf-lib/fontkit');
-const { PDFDocument, rgb } = require('pdf-lib');
-const fs = require('fs');
+import { PDFDocument } from 'pdf-lib';
+import * as fontkit from '@btielen/pdf-lib-fontkit';
+
+import myFontPath from '@/assets/fonts/SimSun.ttf'
 
 function addLine(page, text, font, fontSize, x, y) {
     page.drawText(text, {
         x,
         y,
         size: fontSize,
-        font,
-        color: rgb(0, 0, 0),
+        font
     });
 }
 
@@ -33,7 +33,6 @@ function addTextWithUnderline(page, text, font, fontSize, x, y) {
         start: { x: x - 2, y: y - 3 }, // 3px below the text
         end: { x: x + textWidth + 2, y: y - 3 },
         thickness: 1,
-        color: rgb(0, 0, 0),
     });
 }
 
@@ -45,7 +44,6 @@ function addTextWithFixedWidthAndUnderline(page, text, font, fontSize, x, y, wid
         start: { x, y: y - 3 }, // 3px below the text
         end: { x: x + width, y: y - 3 },
         thickness: 1,
-        color: rgb(0, 0, 0),
     });
 }
 
@@ -53,14 +51,27 @@ function getWidth(font, fontSize, count) {
     return font.widthOfTextAtSize('缩'.repeat(count), fontSize);
 }
 
-async function generatePdf(details) {
+async function loadFontBytes(fontUrlOrPath) {
+    if (typeof window !== 'undefined') {
+        // 浏览器：fetch 加载
+        return await fetch(fontUrlOrPath).then(res => res.arrayBuffer());
+    } else {
+        // Node.js：fs 读取
+        const fs = require('fs');
+        return fs.readFileSync(fontUrlOrPath);
+    }
+}
+
+export async function generatePdf(details, fontUrl='') {
     const pdfDoc = await PDFDocument.create();
     // 注册 fontkit
     pdfDoc.registerFontkit(fontkit);
     const baseFontSize = 16; // 基础字体大小
     const page = pdfDoc.addPage([595.28, 841.89]); // A4 尺寸
 
-    const fontBytes = fs.readFileSync('./src/assets/fonts/SimSun.ttf');
+    const finalFontUrl = fontUrl || myFontPath;
+    const fontBytes = await loadFontBytes(finalFontUrl);
+
     const customFont = await pdfDoc.embedFont(fontBytes, { subset: true });
 
     addCenteredText(page, '张江科学城综合党委', customFont, baseFontSize + 2, 780);
@@ -103,7 +114,3 @@ async function generatePdf(details) {
 
     return pdfBytes;
 }
-
-
-
-module.exports.generatePdf = generatePdf;
