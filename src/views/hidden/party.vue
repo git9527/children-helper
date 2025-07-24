@@ -33,13 +33,13 @@ export default {
     async generateItems () {
       const fields = this.content.split('\t')
       const details = {
-        name: fields[0],
-        phone: fields[1],
-        id: fields[2],
-        receiverContact: fields[3],
-        receiverPhone: fields[4],
-        receiverName: fields[5],
-        receiverLocation: fields[6] || fields[5],
+        name: fields[0] || '未填写',
+        phone: fields[1] || '13900000000',
+        id: fields[2] || '000000000000000000',
+        receiverContact: fields[3] || '未知',
+        receiverPhone: fields[4] || '13900000000',
+        receiverName: fields[5] || '未知',
+        receiverLocation: fields[6] || fields[5] || '未知',
         month: new Date().getMonth() + 1 + "",
       }
       const pdfBytes = await generatePdf(details, 'https://biti.cdn.zhangsn.me/font/SimSun.ttf')
