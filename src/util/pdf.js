@@ -1,15 +1,15 @@
-import { PDFDocument } from 'pdf-lib';
+import {PDFDocument} from 'pdf-lib';
 import * as fontkit from '@btielen/pdf-lib-fontkit';
 
-import myFontPath from '@/assets/fonts/SimSun.ttf'
-
 function addLine(page, text, font, fontSize, x, y) {
+    const width = font.widthOfTextAtSize(text, fontSize);
     page.drawText(text, {
         x,
         y,
         size: fontSize,
         font
     });
+    return x + width; // 返回文本的结束位置
 }
 
 function addCenteredText(page, text, font, fontSize, y) {
@@ -45,6 +45,7 @@ function addTextWithFixedWidthAndUnderline(page, text, font, fontSize, x, y, wid
         end: { x: x + width, y: y - 3 },
         thickness: 1,
     });
+    return x + width
 }
 
 function getWidth(font, fontSize, count) {
@@ -62,19 +63,24 @@ async function loadFontBytes(fontUrlOrPath) {
     }
 }
 
-export async function generatePdf(details, fontUrl='') {
+export async function generatePdf(details, fontUrl='', headerFontUrl = '') {
     const pdfDoc = await PDFDocument.create();
     // 注册 fontkit
     pdfDoc.registerFontkit(fontkit);
     const baseFontSize = 16; // 基础字体大小
     const page = pdfDoc.addPage([595.28, 841.89]); // A4 尺寸
 
-    const finalFontUrl = fontUrl || myFontPath;
+    const finalFontUrl = fontUrl || './src/assets/fonts/SimSun.ttf'
+
+    const finalHeaderFontUrl = headerFontUrl || './src/assets/fonts/SimSun-Bold.ttf';
+
     const fontBytes = await loadFontBytes(finalFontUrl);
 
     const customFont = await pdfDoc.embedFont(fontBytes, { subset: true });
+    const headerFontBytes = await loadFontBytes(finalHeaderFontUrl);
+    const headerFont = await pdfDoc.embedFont(headerFontBytes, { subset: true });
 
-    addCenteredText(page, '张江科学城综合党委', customFont, baseFontSize + 2, 780);
+    addCenteredText(page, '张江科学城综合党委', headerFont, baseFontSize + 6, 780);
     addRightAlignedText(page, '党员组织关系介绍信（系统内）     通知联', customFont, baseFontSize, 730)
     addRightAlignedText(page, '沪张综委第    号', customFont, baseFontSize, 710);
     addTextWithUnderline(page, '张江科学城综合党委：', customFont, baseFontSize, 60, 680);
@@ -101,16 +107,14 @@ export async function generatePdf(details, fontUrl='') {
     addTextWithUnderline(page, details.receiverLocation, customFont, baseFontSize, 60 + getWidth(customFont, baseFontSize, 3), 470);
 
     const currentYear = new Date().getFullYear() + "";
-    addTextWithFixedWidthAndUnderline(page, currentYear, customFont, baseFontSize, 60 + getWidth(customFont, baseFontSize, 22), 400, getWidth(customFont, baseFontSize, 3));
-    addLine(page, '年', customFont, baseFontSize, 60 + getWidth(customFont, baseFontSize, 25), 400);
+    let end = addTextWithFixedWidthAndUnderline(page, currentYear, customFont, baseFontSize, 60 + getWidth(customFont, baseFontSize, 22), 400, getWidth(customFont, baseFontSize, 3));
+    end = addLine(page, '年', customFont, baseFontSize, end, 400);
     const currentMonth = (new Date().getMonth() + 1) + "";
-    addTextWithFixedWidthAndUnderline(page, currentMonth, customFont, baseFontSize, 60 + getWidth(customFont, baseFontSize, 26), 400, getWidth(customFont, baseFontSize, 1));
-    addLine(page, '月', customFont, baseFontSize, 60 + getWidth(customFont, baseFontSize, 27), 400);
+    end = addTextWithFixedWidthAndUnderline(page, currentMonth, customFont, baseFontSize, end, 400, getWidth(customFont, baseFontSize, 1) * 1.5);
+    end = addLine(page, '月', customFont, baseFontSize, end, 400);
     const currentDay = new Date().getDate() + "";
-    addTextWithFixedWidthAndUnderline(page, currentDay, customFont, baseFontSize, 60 + getWidth(customFont, baseFontSize, 28), 400, getWidth(customFont, baseFontSize, 1));
-    addLine(page, '日', customFont, baseFontSize, 60 + getWidth(customFont, baseFontSize, 29), 400);
+    end = addTextWithFixedWidthAndUnderline(page, currentDay, customFont, baseFontSize, end, 400, getWidth(customFont, baseFontSize, 1) * 1.5);
+    addLine(page, '日', customFont, baseFontSize, end, 400);
     addRightAlignedText(page, '支部签章：       ', customFont, baseFontSize, 370);
-    const pdfBytes = await pdfDoc.save();
-
-    return pdfBytes;
+    return await pdfDoc.save();
 }

@@ -42,7 +42,7 @@ export default {
         receiverLocation: fields[6] || fields[5] || '未知',
         month: new Date().getMonth() + 1 + "",
       }
-      const pdfBytes = await generatePdf(details, 'https://biti.cdn.zhangsn.me/font/SimSun.ttf')
+      const pdfBytes = await generatePdf(details, 'https://biti.cdn.zhangsn.me/font/SimSun.ttf', 'https://biti.cdn.zhangsn.me/font/SimSun-Bold.ttf')
       const blob = new Blob([pdfBytes], { type: 'application/pdf' });
       // pdfBytes 是你生成的 Uint8Array
       const blobUrl = URL.createObjectURL(blob);
