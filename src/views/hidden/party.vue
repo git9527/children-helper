@@ -34,12 +34,12 @@ export default {
       const fields = this.content.split('\t')
       const details = {
         name: fields[0],
-        id: fields[5],
-        phone: fields[4],
-        receiverContact: fields[6],
-        receiverPhone: fields[7],
-        receiverName: fields[8],
-        receiverLocation: fields[9] || fields[8],
+        phone: fields[1],
+        id: fields[2],
+        receiverContact: fields[3],
+        receiverPhone: fields[4],
+        receiverName: fields[5],
+        receiverLocation: fields[6] || fields[5],
         month: new Date().getMonth() + 1 + "",
       }
       const pdfBytes = await generatePdf(details, 'https://biti.cdn.zhangsn.me/font/SimSun.ttf')
