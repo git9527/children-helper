@@ -52,6 +52,7 @@ export default {
 
       if (printWindow) {
         // 等 PDF 加载完成后触发打印
+        this.content = '';
         printWindow.onload = () => {
           printWindow.focus();
           printWindow.print();
